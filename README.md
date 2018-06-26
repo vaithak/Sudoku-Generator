@@ -22,7 +22,7 @@ $ bash setup.sh
 To run => enter `$ sudokuGen` from anywhere in the terminal
 
 ### Example Puzzle generated from the program
-![image](https://github.com/vaithak/blob/master/example_puzzle.svg)  
+![image](https://github.com/vaithak/Sudoku-Generator/blob/master/example_puzzle.svg)  
 
 ## TODO
 
