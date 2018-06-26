@@ -27,6 +27,6 @@ You can view the svg image generated in any Browser.
 
 ## TODO
 
-=> Currently the sudoku created is of Random difficulty.
+=> Currently the sudoku created is of Random difficulty.  
    I have to implement a way such that the sudoku generated is of difficulty level entered by the User.  
    
