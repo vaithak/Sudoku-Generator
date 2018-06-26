@@ -4,11 +4,11 @@ A Sudoku puzzle generator written in C++.
 
 ## Steps to Use:-  
 
-#### Requirements: 
+### Requirements: 
 -> git  
 -> Latest version C++ compiler , (this program has been tested on g++ only)   
 
-#### Linux and MacOS
+### Linux and MacOS
 
 Type the follwing commands on your terminal (without the '$')  
 ```
@@ -21,4 +21,11 @@ $ bash setup.sh
 
 To run => enter `$ sudokuGen` from anywhere in the terminal
 
+### Example Puzzle generated from the program
+![image](https://github.com/vaithak/blob/master/example_puzzle.svg)  
 
+## TODO
+
+=> Currently the sudoku created is of Random difficulty.
+   I have to implement a way such that the sudoku generated is of difficulty level entered by the User.  
+   
