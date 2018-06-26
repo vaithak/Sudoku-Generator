@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1"
+     baseProfile="full"
+     width="500" height="500"
+     xmlns="http://www.w3.org/2000/svg" style="padding:10px;margin:60px">
+ <!-- <rect width="400" height="400" style="fill:rgb(255,255,255);stroke-width:6;stroke:rgb(0,0,0)" /> -->
+  <polyline points="0,0 450,0 450,450 0,450 0,0"
+  style="fill:none;stroke:black;stroke-width:5" />
+  <polyline points="0,50 450,50" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="0,100 450,100" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="0,150 450,150" style="fill:none; stroke:black ; stroke-width:5" />
+  <polyline points="0,200 450,200" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="0,250 450,250" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="0,300 450,300" style="fill:none; stroke:black ; stroke-width:5" />
+  <polyline points="0,350 450,350" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="0,400 450,400" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="50,0 50,450" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="100,0 100,450" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="150,0 150,450" style="fill:none; stroke:black ; stroke-width:5" />
+  <polyline points="200,0 200,450" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="250,0 250,450" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="300,0 300,450" style="fill:none; stroke:black ; stroke-width:5" />
+  <polyline points="350,0 350,450" style="fill:none; stroke:black ; stroke-width:1" />
+  <polyline points="400,0 400,450" style="fill:none; stroke:black ; stroke-width:1" />
