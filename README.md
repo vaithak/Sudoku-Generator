@@ -19,7 +19,8 @@ $ bash setup.sh
 
 **Now restart the terminal and you are good to go**  
 
-To run => enter `$ sudokuGen` from anywhere in the terminal
+To run => enter `$ sudokuGen` from anywhere in the terminal  
+You can view the svg image generated in any Browser.  
 
 ### Example Puzzle generated from the program
 ![image](https://github.com/vaithak/Sudoku-Generator/blob/master/example_puzzle.svg)  
