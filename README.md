@@ -23,10 +23,20 @@ To run => enter `$ sudokuGen` from anywhere in the terminal
 You can view the svg image generated in any Browser.  
 
 ### Example Puzzle generated from the program
-![image](https://github.com/vaithak/Sudoku-Generator/blob/master/example_puzzle.svg)  
+![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/example_puzzle.svg)  
 
 ## TODO
 
 => Currently the sudoku created is of Random difficulty.  
    I have to implement a way such that the sudoku generated is of difficulty level entered by the User.  
    
+   
+### FlowChart
+
+![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/flowchart1.png)  
+
+![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/flowchart2.png)  
+
+
+### Working of major things in it:  
+
