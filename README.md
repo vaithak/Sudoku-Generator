@@ -34,9 +34,7 @@ You can view the svg image generated in any Browser.
 ### FlowChart
 
 ![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/flowchart1.png)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/flowchart2.png)  
-
 
 ### Working of Step 1 and Step 6:  
 
