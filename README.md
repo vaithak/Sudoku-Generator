@@ -38,5 +38,21 @@ You can view the svg image generated in any Browser.
 ![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/flowchart2.png)  
 
 
-### Working of major things in it:  
+### Working of Step 1 and Step 6:  
 
+**Step 1**  
+```
+ => Empty grid is solved using the normal backtracking method only, 
+    but to make the seed different every time, we will not check numbers 
+    1-9 sequentially at empty position.
+    
+ => Rather we will shuffle the list containing numbers 1-9 and fill cell according
+    to it.
+    
+ => This ensures every time the program is run, the seed is different.
+```  
+
+**Step 6:**  
+```
+  TODO
+```  
