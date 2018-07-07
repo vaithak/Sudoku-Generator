@@ -234,9 +234,10 @@ void Sudoku::genPuzzle()
 
 
 // START: Printing into SVG file
-void Sudoku::printSVG(string path)
+void Sudoku::printSVG(string path="")
 {
-  ifstream file1(path + "svgHead.txt");
+  string fileName = path + "svgHead.txt";
+  ifstream file1(fileName.c_str());
   stringstream svgHead;
   svgHead << file1.rdbuf();
 
