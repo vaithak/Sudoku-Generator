@@ -15,6 +15,7 @@ private:
   int grid[9][9];
   int guessNum[9];
   int gridPos[81];
+  int difficultyLevel;
 
 public:
   Sudoku ();
@@ -24,7 +25,8 @@ public:
   void countSoln(int &number);
   void genPuzzle();
   void printSVG(string);
-  bool difficultyCheck(int n);
+  void calculateDifficulty();
+  int  branchDifficultyScore();
 };
 
 
@@ -47,6 +49,9 @@ void Sudoku::createSeed()
 // START: Intialising
 Sudoku::Sudoku()
 {
+
+  // initialize difficulty level
+  this->difficultyLevel = 0;
 
   // Randomly shuffling the array of removing grid positions
   for(int i=0;i<81;i++)
@@ -84,10 +89,17 @@ void Sudoku::printGrid()
   {
     for(int j=0;j<9;j++)
     {
-      cout<<grid[i][j]<<"|";
+      if(grid[i][j] == 0)
+	cout<<".";
+      else
+	cout<<grid[i][j];
+      cout<<"|";
     }
     cout<<endl;
   }
+
+  cout<<"\nDifficulty of current sudoku(0 being easiest): "<<this->difficultyLevel;
+  cout<<endl;
 }
 // END: Printing the grid
 
@@ -261,10 +273,39 @@ void Sudoku::printSVG(string path="")
     }
   }
 
+    outFile << "<text x=\"50\" y=\"500\" style=\"font-weight:bold\" font-size=\"15px\">Difficulty Level (0 being easiest): "             <<this->difficultyLevel<<"</text>\n";
     outFile << "</svg>";
 
 }
 // END: Printing into SVG file
+
+
+// START: Calculate branch difficulty score
+int Sudoku::branchDifficultyScore()
+{
+  return 0;
+}
+// END: Finish branch difficulty score
+
+
+// START: Calculate difficulty level of current grid
+void Sudoku::calculateDifficulty()
+{
+  int B = branchDifficultyScore();
+  int emptyCells = 0;
+
+  for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+	if(this->grid[i][j] == 0)
+	   emptyCells++;
+    }
+  } 
+
+  this->difficultyLevel = B*100 + emptyCells;
+}
+// END: calculating difficulty level
 
 
 // START: The main function
@@ -281,6 +322,9 @@ int main(int argc, char const *argv[])
 
   // Generating the puzzle
   puzzle->genPuzzle();
+
+  // Calculating difficulty of puzzle
+  puzzle->calculateDifficulty();
 
   // testing by printing the grid
   puzzle->printGrid();
