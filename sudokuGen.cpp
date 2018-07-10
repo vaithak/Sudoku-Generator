@@ -273,7 +273,7 @@ void Sudoku::printSVG(string path="")
     }
   }
 
-    outFile << "<text x=\"50\" y=\"500\" style=\"font-weight:bold\" font-size=\"15px\">Difficulty Level (0 being easiest): "             <<this->difficultyLevel<<"</text>\n";
+    outFile << "<text x=\"50\" y=\"500\" style=\"font-weight:bold\" font-size=\"15px\">Difficulty Level (0 being easiest): "                  <<this->difficultyLevel<<"</text>\n";
     outFile << "</svg>";
 
 }
@@ -283,7 +283,22 @@ void Sudoku::printSVG(string path="")
 // START: Calculate branch difficulty score
 int Sudoku::branchDifficultyScore()
 {
-  return 0;
+   vector<vector<int>> empty; 
+
+   for(int i=0;i<81;i++)
+   {
+      if(this->grid[i][j] == 0)
+      {
+	vector<int> temp;
+
+	for(int i=1;i<=9;i++)
+	{
+	  if(
+	}
+      }
+      vector<int> temp;
+   }
+
 }
 // END: Finish branch difficulty score
 
