@@ -24,12 +24,6 @@ You can view the svg image generated in any Browser.
 
 ### Example Puzzle generated from the program
 ![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/example_puzzle.svg)  
-
-## TODO
-
-=> Currently the sudoku created is of Random difficulty.  
-   I have to implement a way such that the sudoku generated is of difficulty level entered by the User.  
-   
    
 ### FlowChart
 
