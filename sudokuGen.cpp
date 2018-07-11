@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #define UNASSIGNED 0
 
@@ -13,6 +14,7 @@ using namespace std;
 class Sudoku {
 private:
   int grid[9][9];
+  int solnGrid[9][9];
   int guessNum[9];
   int gridPos[81];
   int difficultyLevel;
@@ -41,7 +43,56 @@ int genRandNum(int maxLimit)
 // START: Create seed grid
 void Sudoku::createSeed()
 {
+  /*for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+	this->grid[i][j] = 0;
+    }
+  }
+
+  this->grid[0][0] = 3;
+  this->grid[0][1] = 7;
+  this->grid[0][5] = 9;
+  this->grid[0][8] = 6;
+  this->grid[1][0] = 8;
+  this->grid[1][3] = 1;
+  this->grid[1][5] = 3;
+  this->grid[1][7] = 7;
+  this->grid[2][8] = 8;
+  this->grid[3][1] = 2;
+  this->grid[3][4] = 8;
+  this->grid[3][8] = 5;
+  this->grid[4][0] = 1;
+  this->grid[4][1] = 8;
+  this->grid[4][2] = 7;
+  this->grid[4][6] = 6;
+  this->grid[4][7] = 4;
+  this->grid[4][8] = 2;
+  this->grid[5][0] = 5;
+  this->grid[5][4] = 2;
+  this->grid[5][7] = 1;
+  this->grid[6][0] = 7;
+  this->grid[7][1] = 5;
+  this->grid[7][3] = 6;
+  this->grid[7][5] = 2;
+  this->grid[7][8] = 7;
+  this->grid[8][0] = 2;
+  this->grid[8][3] = 3;
+  this->grid[8][7] = 6;
+  this->grid[8][8] = 1;
+*/
+  
   this->solveGrid();
+  
+  // Saving the solution grid
+  for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+      this->solnGrid[i][j] = this->grid[i][j];
+    }
+  }
 }
 // END: Create seed grid
 
@@ -241,6 +292,46 @@ void Sudoku::genPuzzle()
       this->grid[x][y] = temp;
     }
   }
+
+  /*for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+	this->grid[i][j] = 0;
+    }
+  }
+
+  this->grid[0][0] = 3;
+  this->grid[0][1] = 7;
+  this->grid[0][5] = 9;
+  this->grid[0][8] = 6;
+  this->grid[1][0] = 8;
+  this->grid[1][3] = 1;
+  this->grid[1][5] = 3;
+  this->grid[1][7] = 7;
+  this->grid[2][8] = 8;
+  this->grid[3][1] = 2;
+  this->grid[3][4] = 8;
+  this->grid[3][8] = 5;
+  this->grid[4][0] = 1;
+  this->grid[4][1] = 8;
+  this->grid[4][2] = 7;
+  this->grid[4][6] = 6;
+  this->grid[4][7] = 4;
+  this->grid[4][8] = 2;
+  this->grid[5][0] = 5;
+  this->grid[5][4] = 2;
+  this->grid[5][7] = 1;
+  this->grid[6][0] = 7;
+  this->grid[7][1] = 5;
+  this->grid[7][3] = 6;
+  this->grid[7][5] = 2;
+  this->grid[7][8] = 7;
+  this->grid[8][0] = 2;
+  this->grid[8][3] = 3;
+  this->grid[8][7] = 6;
+  this->grid[8][8] = 1;
+  */ 
 }
 // END: Generate puzzle
 
@@ -283,21 +374,68 @@ void Sudoku::printSVG(string path="")
 // START: Calculate branch difficulty score
 int Sudoku::branchDifficultyScore()
 {
-   vector<vector<int>> empty; 
+   int emptyPositions = -1;
+   int tempGrid[9][9];
+   int sum=0;
 
-   for(int i=0;i<81;i++)
+   for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+      tempGrid[i][j] = this->grid[i][j];
+    }
+  }
+
+   while(emptyPositions!=0)
    {
-      if(this->grid[i][j] == 0)
-      {
-	vector<int> temp;
+     vector<vector<int> > empty; 
 
-	for(int i=1;i<=9;i++)
-	{
-	  if(
-	}
-      }
-      vector<int> temp;
+     for(int i=0;i<81;i++)
+     {
+        if(tempGrid[(int)(i/9)][(int)(i%9)] == 0)
+        {
+       	  vector<int> temp;
+	  temp.push_back(i);
+	
+	  for(int num=1;num<=9;num++)
+	  {
+	    if(isSafe(tempGrid,i/9,i%9,num))
+	    {
+	      temp.push_back(num);
+	    }
+	  }
+
+	  empty.push_back(temp);
+        }
+      
+     }
+
+     if(empty.size() == 0)
+     { 
+       cout<<"Hello: "<<sum<<endl;
+       return sum;
+     } 
+
+     int minIndex = 0;
+
+     int check = empty.size();
+     for(int i=0;i<check;i++)
+     {
+       if(empty[i].size() < empty[minIndex].size())
+	  minIndex = i;
+     }
+
+     int branchFactor=empty[minIndex].size();
+     int rowIndex = empty[minIndex][0]/9;
+     int colIndex = empty[minIndex][0]%9;
+
+     tempGrid[rowIndex][colIndex] = this->solnGrid[rowIndex][colIndex];
+     sum = sum + ((branchFactor-2) * (branchFactor-2)) ;
+
+     emptyPositions = empty.size() - 1;
    }
+
+   return sum;
 
 }
 // END: Finish branch difficulty score

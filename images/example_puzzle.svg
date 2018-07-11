@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg version="1.1"
      baseProfile="full"
-     width="500" height="500"
+     width="500" height="600"
      xmlns="http://www.w3.org/2000/svg" style="padding:10px;margin:10px">
  <!-- <rect width="400" height="400" style="fill:rgb(255,255,255);stroke-width:6;stroke:rgb(0,0,0)" /> -->
   <polyline points="0,0 450,0 450,450 0,450 0,0"
@@ -22,29 +22,32 @@
   <polyline points="300,0 300,450" style="fill:none; stroke:black ; stroke-width:5" />
   <polyline points="350,0 350,450" style="fill:none; stroke:black ; stroke-width:1" />
   <polyline points="400,0 400,450" style="fill:none; stroke:black ; stroke-width:1" />
-<text x="66" y="35" style="font-weight:bold" font-size="30px">7</text>
-<text x="316" y="35" style="font-weight:bold" font-size="30px">8</text>
-<text x="416" y="35" style="font-weight:bold" font-size="30px">5</text>
-<text x="66" y="85" style="font-weight:bold" font-size="30px">1</text>
-<text x="16" y="135" style="font-weight:bold" font-size="30px">8</text>
+<text x="16" y="35" style="font-weight:bold" font-size="30px">4</text>
+<text x="166" y="35" style="font-weight:bold" font-size="30px">2</text>
+<text x="266" y="35" style="font-weight:bold" font-size="30px">1</text>
+<text x="366" y="35" style="font-weight:bold" font-size="30px">9</text>
+<text x="16" y="85" style="font-weight:bold" font-size="30px">2</text>
+<text x="66" y="85" style="font-weight:bold" font-size="30px">7</text>
+<text x="216" y="85" style="font-weight:bold" font-size="30px">9</text>
+<text x="266" y="85" style="font-weight:bold" font-size="30px">5</text>
 <text x="116" y="135" style="font-weight:bold" font-size="30px">5</text>
-<text x="166" y="135" style="font-weight:bold" font-size="30px">6</text>
-<text x="216" y="135" style="font-weight:bold" font-size="30px">7</text>
-<text x="416" y="135" style="font-weight:bold" font-size="30px">4</text>
-<text x="116" y="185" style="font-weight:bold" font-size="30px">9</text>
-<text x="266" y="185" style="font-weight:bold" font-size="30px">1</text>
-<text x="166" y="235" style="font-weight:bold" font-size="30px">2</text>
-<text x="366" y="235" style="font-weight:bold" font-size="30px">6</text>
-<text x="416" y="235" style="font-weight:bold" font-size="30px">9</text>
-<text x="66" y="285" style="font-weight:bold" font-size="30px">5</text>
-<text x="316" y="285" style="font-weight:bold" font-size="30px">3</text>
-<text x="116" y="335" style="font-weight:bold" font-size="30px">6</text>
-<text x="166" y="335" style="font-weight:bold" font-size="30px">4</text>
-<text x="366" y="335" style="font-weight:bold" font-size="30px">8</text>
-<text x="216" y="385" style="font-weight:bold" font-size="30px">8</text>
-<text x="266" y="385" style="font-weight:bold" font-size="30px">2</text>
-<text x="316" y="385" style="font-weight:bold" font-size="30px">1</text>
-<text x="366" y="385" style="font-weight:bold" font-size="30px">3</text>
-<text x="16" y="435" style="font-weight:bold" font-size="30px">5</text>
-<text x="316" y="435" style="font-weight:bold" font-size="30px">4</text>
+<text x="266" y="135" style="font-weight:bold" font-size="30px">3</text>
+<text x="316" y="185" style="font-weight:bold" font-size="30px">9</text>
+<text x="366" y="185" style="font-weight:bold" font-size="30px">5</text>
+<text x="216" y="235" style="font-weight:bold" font-size="30px">5</text>
+<text x="366" y="235" style="font-weight:bold" font-size="30px">4</text>
+<text x="416" y="235" style="font-weight:bold" font-size="30px">2</text>
+<text x="16" y="285" style="font-weight:bold" font-size="30px">9</text>
+<text x="166" y="285" style="font-weight:bold" font-size="30px">8</text>
+<text x="266" y="285" style="font-weight:bold" font-size="30px">2</text>
+<text x="416" y="285" style="font-weight:bold" font-size="30px">7</text>
+<text x="16" y="335" style="font-weight:bold" font-size="30px">7</text>
+<text x="66" y="335" style="font-weight:bold" font-size="30px">3</text>
+<text x="216" y="335" style="font-weight:bold" font-size="30px">2</text>
+<text x="266" y="335" style="font-weight:bold" font-size="30px">8</text>
+<text x="16" y="385" style="font-weight:bold" font-size="30px">1</text>
+<text x="116" y="435" style="font-weight:bold" font-size="30px">9</text>
+<text x="316" y="435" style="font-weight:bold" font-size="30px">1</text>
+<text x="366" y="435" style="font-weight:bold" font-size="30px">2</text>
+<text x="50" y="500" style="font-weight:bold" font-size="15px">Difficulty Level (0 being easiest): 254</text>
 </svg>
