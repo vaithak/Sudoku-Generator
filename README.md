@@ -99,4 +99,4 @@ You can view the svg image generated in any Browser.
   Making this modification often changes the results of difficulty estimations drastically. 
 ```  
 
-[Reference](https://dlbeer.co.nz/articles/sudoku.html)  
+[Reference](https://utiny.herokuapp.com/gt)  
