@@ -42,47 +42,7 @@ int genRandNum(int maxLimit)
 
 // START: Create seed grid
 void Sudoku::createSeed()
-{
-  /*for(int i=0;i<9;i++)
-  {
-    for(int j=0;j<9;j++)
-    {
-	this->grid[i][j] = 0;
-    }
-  }
-
-  this->grid[0][0] = 3;
-  this->grid[0][1] = 7;
-  this->grid[0][5] = 9;
-  this->grid[0][8] = 6;
-  this->grid[1][0] = 8;
-  this->grid[1][3] = 1;
-  this->grid[1][5] = 3;
-  this->grid[1][7] = 7;
-  this->grid[2][8] = 8;
-  this->grid[3][1] = 2;
-  this->grid[3][4] = 8;
-  this->grid[3][8] = 5;
-  this->grid[4][0] = 1;
-  this->grid[4][1] = 8;
-  this->grid[4][2] = 7;
-  this->grid[4][6] = 6;
-  this->grid[4][7] = 4;
-  this->grid[4][8] = 2;
-  this->grid[5][0] = 5;
-  this->grid[5][4] = 2;
-  this->grid[5][7] = 1;
-  this->grid[6][0] = 7;
-  this->grid[7][1] = 5;
-  this->grid[7][3] = 6;
-  this->grid[7][5] = 2;
-  this->grid[7][8] = 7;
-  this->grid[8][0] = 2;
-  this->grid[8][3] = 3;
-  this->grid[8][7] = 6;
-  this->grid[8][8] = 1;
-*/
-  
+{ 
   this->solveGrid();
   
   // Saving the solution grid
@@ -292,46 +252,6 @@ void Sudoku::genPuzzle()
       this->grid[x][y] = temp;
     }
   }
-
-  /*for(int i=0;i<9;i++)
-  {
-    for(int j=0;j<9;j++)
-    {
-	this->grid[i][j] = 0;
-    }
-  }
-
-  this->grid[0][0] = 3;
-  this->grid[0][1] = 7;
-  this->grid[0][5] = 9;
-  this->grid[0][8] = 6;
-  this->grid[1][0] = 8;
-  this->grid[1][3] = 1;
-  this->grid[1][5] = 3;
-  this->grid[1][7] = 7;
-  this->grid[2][8] = 8;
-  this->grid[3][1] = 2;
-  this->grid[3][4] = 8;
-  this->grid[3][8] = 5;
-  this->grid[4][0] = 1;
-  this->grid[4][1] = 8;
-  this->grid[4][2] = 7;
-  this->grid[4][6] = 6;
-  this->grid[4][7] = 4;
-  this->grid[4][8] = 2;
-  this->grid[5][0] = 5;
-  this->grid[5][4] = 2;
-  this->grid[5][7] = 1;
-  this->grid[6][0] = 7;
-  this->grid[7][1] = 5;
-  this->grid[7][3] = 6;
-  this->grid[7][5] = 2;
-  this->grid[7][8] = 7;
-  this->grid[8][0] = 2;
-  this->grid[8][3] = 3;
-  this->grid[8][7] = 6;
-  this->grid[8][8] = 1;
-  */ 
 }
 // END: Generate puzzle
 
