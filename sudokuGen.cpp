@@ -18,18 +18,38 @@ private:
   int guessNum[9];
   int gridPos[81];
   int difficultyLevel;
+  bool grid_status;
 
 public:
   Sudoku ();
+  Sudoku (string, bool row_major=true);
   void createSeed();
   void printGrid();
   bool solveGrid();
+  string getGrid();
   void countSoln(int &number);
   void genPuzzle();
+  bool verifyGridStatus();
   void printSVG(string);
   void calculateDifficulty();
   int  branchDifficultyScore();
 };
+
+// START: Get grid as string in row major order
+string Sudoku::getGrid()
+{
+  string s = "";
+  for(int row_num=0; row_num<9; ++row_num)
+  {
+    for(int col_num=0; col_num<9; ++col_num)
+    {
+      s = s + to_string(grid[row_num][col_num]);
+    }
+  }
+
+  return s;
+}
+// END: Get grid as string in row major order
 
 
 // START: Generate random number
@@ -89,8 +109,101 @@ Sudoku::Sudoku()
     }
   }
 
+  grid_status = true;
 }
 // END: Initialising
+
+
+// START: Custom Initialising with grid passed as argument
+Sudoku::Sudoku(string grid_str, bool row_major)
+{
+  if(grid_str.length() != 81)
+  {
+    grid_status=false;
+    return;
+  }
+
+  // First pass: Check if all cells are valid
+  for(int i=0; i<81; ++i)
+  {
+    int curr_num = grid_str[i]-'0';
+    if(!((curr_num == UNASSIGNED) || (curr_num > 0 && curr_num < 10)))
+    {
+      grid_status=false;
+      return;
+    }
+
+    if(row_major) grid[i/9][i%9] = curr_num;
+    else          grid[i%9][i/9] = curr_num;
+  }
+
+  // Second pass: Check if all columns are valid
+  for (int col_num=0; col_num<9; ++col_num)
+  {
+    bool nums[10]={false};
+    for (int row_num=0; row_num<9; ++row_num)
+    {
+      int curr_num = grid[row_num][col_num];
+      if(curr_num!=UNASSIGNED && nums[curr_num]==true)
+      {
+        grid_status=false;
+        return;
+      }
+      nums[curr_num] = true;
+    }
+  }
+
+  // Third pass: Check if all rows are valid
+  for (int row_num=0; row_num<9; ++row_num)
+  {
+    bool nums[10]={false};
+    for (int col_num=0; col_num<9; ++col_num)
+    {
+      int curr_num = grid[row_num][col_num];
+      if(curr_num!=UNASSIGNED && nums[curr_num]==true)
+      {
+        grid_status=false;
+        return;
+      }
+      nums[curr_num] = true;
+    }
+  }
+
+  // Fourth pass: Check if all blocks are valid
+  for (int block_num=0; block_num<9; ++block_num)
+  {
+    bool nums[10]={false};
+    for (int cell_num=0; cell_num<9; ++cell_num)
+    {
+      int curr_num = grid[((int)(block_num/3))*3 + (cell_num/3)][((int)(block_num%3))*3 + (cell_num%3)];
+      if(curr_num!=UNASSIGNED && nums[curr_num]==true)
+      {
+        grid_status=false;
+        return;
+      }
+      nums[curr_num] = true;
+    }
+  }
+
+  // Randomly shuffling the guessing number array
+  for(int i=0;i<9;i++)
+  {
+    this->guessNum[i]=i+1;
+  }
+
+  random_shuffle(this->guessNum, (this->guessNum) + 9, genRandNum);
+
+  grid_status = true;
+}
+// END: Custom Initialising
+
+
+// START: Verification status of the custom grid passed
+bool Sudoku::verifyGridStatus()
+{
+  return grid_status;
+}
+// END: Verification of the custom grid passed
 
 
 // START: Printing the grid
@@ -174,7 +287,7 @@ bool isSafe(int grid[9][9], int row, int col, int num)
 // END: Helper functions for solving grid
 
 
-// START: Modified and improved Sudoku solver
+// START: Modified Sudoku solver
 bool Sudoku::solveGrid()
 {
     int row, col;
@@ -204,7 +317,7 @@ bool Sudoku::solveGrid()
     return false; // this triggers backtracking
 
 }
-// END: Modified and improved Sudoku Solver
+// END: Modified Sudoku Solver
 
 
 // START: Check if the grid is uniquely solvable
