@@ -23,7 +23,7 @@ To run => enter `$ sudokuGen` from anywhere in the terminal
 You can view the svg image generated in any Browser.  
 
 ### Example Puzzle generated from the program
-![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/example_puzzle.svg)  
+![image](https://github.com/vaithak/Sudoku-Generator/blob/master/images/example_puzzle.png)  
    
 ### FlowChart
 
