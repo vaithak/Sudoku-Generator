@@ -23,6 +23,7 @@ private:
 public:
   Sudoku ();
   Sudoku (string, bool row_major=true);
+  void fillEmptyDiagonalBox(int);
   void createSeed();
   void printGrid();
   bool solveGrid();
@@ -60,11 +61,96 @@ int genRandNum(int maxLimit)
 // END: Generate random number
 
 
+// START: Helper functions for solving grid
+bool FindUnassignedLocation(int grid[9][9], int &row, int &col)
+{
+    for (row = 0; row < 9; row++)
+    {
+        for (col = 0; col < 9; col++)
+        {
+            if (grid[row][col] == UNASSIGNED)
+                return true;
+        }
+    }
+
+    return false;
+}
+
+bool UsedInRow(int grid[9][9], int row, int num)
+{
+    for (int col = 0; col < 9; col++)
+    {
+        if (grid[row][col] == num)
+            return true;
+    }
+
+    return false;
+}
+
+bool UsedInCol(int grid[9][9], int col, int num)
+{
+    for (int row = 0; row < 9; row++)
+    {
+        if (grid[row][col] == num)
+            return true;
+    }
+
+    return false;
+}
+
+bool UsedInBox(int grid[9][9], int boxStartRow, int boxStartCol, int num)
+{
+    for (int row = 0; row < 3; row++)
+    {
+        for (int col = 0; col < 3; col++)
+        {
+            if (grid[row+boxStartRow][col+boxStartCol] == num)
+                return true;
+        }
+    }
+
+    return false;
+}
+
+bool isSafe(int grid[9][9], int row, int col, int num)
+{
+    return !UsedInRow(grid, row, num) && !UsedInCol(grid, col, num) && !UsedInBox(grid, row - row%3 , col - col%3, num);
+}
+// END: Helper functions for solving grid
+
+
 // START: Create seed grid
+void Sudoku::fillEmptyDiagonalBox(int idx)
+{
+  int start = idx*3;
+  random_shuffle(this->guessNum, (this->guessNum) + 9, genRandNum);
+  for (int i = 0; i < 3; ++i)
+  {
+    for (int j = 0; j < 3; ++j)
+    {
+      this->grid[start+i][start+j] = guessNum[i*3+j];
+    }
+  }
+}
+
 void Sudoku::createSeed()
-{ 
-  this->solveGrid();
-  
+{
+  /* Fill diagonal boxes to form:
+      x | . | .
+      . | x | .
+      . | . | x
+  */
+  this->fillEmptyDiagonalBox(0);
+  this->fillEmptyDiagonalBox(1);
+  this->fillEmptyDiagonalBox(2);
+
+  /* Fill the remaining blocks:
+      x | x | x
+      x | x | x
+      x | x | x
+  */
+  this->solveGrid(); // TODO: not truly random, but still good enough because we generate random diagonals.
+
   // Saving the solution grid
   for(int i=0;i<9;i++)
   {
@@ -226,65 +312,6 @@ void Sudoku::printGrid()
   cout<<endl;
 }
 // END: Printing the grid
-
-
-// START: Helper functions for solving grid
-bool FindUnassignedLocation(int grid[9][9], int &row, int &col)
-{
-    for (row = 0; row < 9; row++)
-    {
-        for (col = 0; col < 9; col++)
-        {
-            if (grid[row][col] == UNASSIGNED)
-                return true;
-        }
-    }
-
-    return false;
-}
-
-bool UsedInRow(int grid[9][9], int row, int num)
-{
-    for (int col = 0; col < 9; col++)
-    {
-        if (grid[row][col] == num)
-            return true;
-    }
-
-    return false;
-}
-
-bool UsedInCol(int grid[9][9], int col, int num)
-{
-    for (int row = 0; row < 9; row++)
-    {
-        if (grid[row][col] == num)
-            return true;
-    }
-
-    return false;
-}
-
-bool UsedInBox(int grid[9][9], int boxStartRow, int boxStartCol, int num)
-{
-    for (int row = 0; row < 3; row++)
-    {
-        for (int col = 0; col < 3; col++)
-        {
-            if (grid[row+boxStartRow][col+boxStartCol] == num)
-                return true;
-        }
-    }
-
-    return false;
-}
-
-bool isSafe(int grid[9][9], int row, int col, int num)
-{
-    return !UsedInRow(grid, row, num) && !UsedInCol(grid, col, num) && !UsedInBox(grid, row - row%3 , col - col%3, num);
-}
-
-// END: Helper functions for solving grid
 
 
 // START: Modified Sudoku solver
