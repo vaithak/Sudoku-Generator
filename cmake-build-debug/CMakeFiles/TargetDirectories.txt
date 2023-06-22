@@ -1,0 +1,3 @@
+/home/ahmetemre/git/gtkmm-sudoku/cmake-build-debug/CMakeFiles/gtkmm_sudoku.dir
+/home/ahmetemre/git/gtkmm-sudoku/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ahmetemre/git/gtkmm-sudoku/cmake-build-debug/CMakeFiles/rebuild_cache.dir
