@@ -1,97 +1,86 @@
 #include <algorithm>
-#include <ctime>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <random>
-#include <gtkmm-4.0/gtkmm.h>
+//#include <gtkmm-4.0/gtkmm.h>
 
 #define UNASSIGNED 0
 
 class sudoku_grid{
 public:
-	sudoku_grid();
-	sudoku_grid(std::string, bool row_major=true);
-	void fillEmptyDiagonalBox(int);
-	void createSeed();
-	void printGrid();
+	inline sudoku_grid();
+	inline explicit sudoku_grid(std::string, bool row_major=true);
+	inline void fillEmptyDiagonalBox(int);
+	inline void createSeed();
+	inline void printGrid();
 	bool solveGrid();
-	std::string getGrid();
-	void countSoln(int& number);
-	void genPuzzle();
-	bool verifyGridStatus();
-	void calculateDifficulty();
-	int branchDifficultyScore();
+	inline std::string getGrid();
+	void countSolution(int& number);
+	inline void genPuzzle();
+	inline bool verifyGridStatus() const;
+	inline void calculateDifficulty();
+	inline int branchDifficultyScore();
 private:
 	int grid [9][9];
 	int solution_grid [9][9];
 	int guessNum [9];
 	int gridPos [81];
-	int difficulityLevel;
+	int difficultyLevel;
 	bool gridStatus;
 };
 
 //get grid as string in row major order
 inline std::string sudoku_grid::getGrid(){
 	std::string s;
-	for(int row_num=0; row_num<9; row_num++){
-		for(int col_num=0; col_num<9; col_num++){
-			s = s + std::to_string(grid[row_num][col_num]);
-		}
-	}
+    for (auto & row_num : grid)
+        for (int col_num: row_num)
+            s += std::to_string(col_num);
 
-	return s;
+
+    return s;
 }
 
 //gen random number
-std::mt19937 mt;
-inline int genRandNum(int maxLimit){
-	return mt()%maxLimit;
-}
+std::random_device rd;
+std::mt19937 mt(rd());
 
 //helper functions for solving grid
 inline bool findUnassignedLocation(int grid[9][9], int &row, int &col){
-	for(row=0; row<9; row++){
-		for(col=0; col<9; col++){
-			if(grid[row][col]==UNASSIGNED){
-				return true;
-			}
-		}
-	}
+    for (row = 0; row < 9; row++)
+        for (col = 0; col < 9; col++)
+            if (grid[row][col] == UNASSIGNED)
+                return true;
 
-	return false;
+    return false;
 }
 
 inline bool usedInRow(int grid[9][9], int row, int num){
-	for(int col=0; col<9; col++){
-		if(grid[row][col]==num){
-			return true;
-		}
-	}
-	
-	return false;
+    for (int col = 0; col < 9; col++)
+        if (grid[row][col] == num)
+            return true;
+
+
+    return false;
 }
 
 inline bool usedInCol(int grid[9][9], int col, int num){
-	for(int row=0; row<9; row++){
-		if(grid[row][col]==num){
-			return true;
-		}
-	}
-	
-	return false;
+    for (int row = 0; row < 9; row++)
+        if (grid[row][col] == num)
+            return true;
+
+
+    return false;
 }
 
 inline bool usedInBox(int grid[9][9], int boxStartRow, int boxStartCol, int num){
-	for(int row=0; row<3; row++){
-		for(int col=0; col<3; col++){
-			if(grid[row+boxStartRow][col+boxStartCol]==num){
-				return true;
-			}
-		}
-	}
+    for (int row = 0; row < 3; row++)
+        for (int col = 0; col < 3; col++)
+            if (grid[row + boxStartRow][col + boxStartCol] == num)
+                return true;
 
-	return false;
+
+    return false;
 }
 
 inline bool isSafe(int grid[9][9], int row, int col, int num){
@@ -102,11 +91,11 @@ inline bool isSafe(int grid[9][9], int row, int col, int num){
 inline void sudoku_grid::fillEmptyDiagonalBox(int idx){
 	int start=idx*3;
 	std::shuffle(this->guessNum, (this->guessNum) + 9, mt);
-	for(int i=0; i<3; i++){
-		for(int j=0; j<3; j++){
-			this->grid[start+i][start+j] = guessNum[i*3+j];
-		}
-	}
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            this->grid[start + i][start + j] = guessNum[i * 3 + j];
+
+
 }
 
 inline void sudoku_grid::createSeed(){
@@ -126,22 +115,22 @@ inline void sudoku_grid::createSeed(){
 	this->solveGrid();
 
 	//saving solution grid
-	for(int i=0; i<9; i++){
-		for(int j=0; j<9; j++){
-			this->solution_grid[i][j] = this->grid[i][j];
-		}
-	}
+    for (int i = 0; i < 9; i++)
+        for (int j = 0; j < 9; j++)
+            this->solution_grid[i][j] = this->grid[i][j];
+
+
 }
 
 //initialising
 inline sudoku_grid::sudoku_grid(){
-	//initialise difficulityLevel
-	this->difficulityLevel=0;
-	for(int i=0; i<81; i++){
-		this->gridPos[i]=i;
-	}
+	//initialise difficultyLevel
+	this->difficultyLevel=0;
+    for (int i = 0; i < 81; i++)
+        this->gridPos[i] = i;
 
-	std::shuffle(this-> gridPos, (this->gridPos) + 81, mt);
+
+    std::shuffle(this-> gridPos, (this->gridPos) + 81, mt);
 
 	//Randomly shuffling the guessing number array
 	for(int i=0; i<9; i++){
@@ -151,13 +140,12 @@ inline sudoku_grid::sudoku_grid(){
 	std::shuffle(this->guessNum, (this->guessNum) + 9, mt);
 
 	//initialising the grid
-	for(int i=0; i<9; i++){
-		for(int j=0; j<9; j++){
-			this->grid[i][j]=0;
-		}
-	}
+    for (auto &i: this->grid)
+        for (int &j: i)
+            j = 0;
 
-	gridStatus = true;
+
+    gridStatus = true;
 }
 
 //grid passed as argument initialisation
@@ -182,9 +170,9 @@ inline sudoku_grid::sudoku_grid(std::string grid_str, bool row_major){
 	//check if all columns are valid
 	for(int col_num =0; col_num < 9; col_num++){
 		bool nums[10]={false};
-		for(int row_num=0; row_num <9; row_num++){
-			int curr_num = grid[row_num][col_num];
-			if(curr_num != UNASSIGNED && nums[curr_num]==true){
+		for(auto & row_num : grid){
+			int curr_num = row_num[col_num];
+			if(curr_num != UNASSIGNED && nums[curr_num]){
 				gridStatus=false;
 				return;
 			}
@@ -193,11 +181,10 @@ inline sudoku_grid::sudoku_grid(std::string grid_str, bool row_major){
 	}
 	
 	//check if all rows are valid
-	for(int row_num = 0; row_num < 9; row_num++){
+	for(auto & row_num : grid){
 		bool nums[10]={false};
-		for(int col_num=0; col_num < 9; col_num++){
-			int curr_num = grid[row_num][col_num];
-			if(curr_num != UNASSIGNED && nums[curr_num]==true){
+		for(int curr_num : row_num){
+				if(curr_num != UNASSIGNED && nums[curr_num]){
 				gridStatus=false;
 				return;
 			}
@@ -210,7 +197,7 @@ inline sudoku_grid::sudoku_grid(std::string grid_str, bool row_major){
 		bool nums[10]={false};
 		for(int cell_num = 0; cell_num < 9; cell_num++){
 			int curr_num = grid[((int)(block_num/3))*3 + (cell_num/3)][((int)(block_num%3))*3 + (cell_num%3)];
-			if(curr_num != UNASSIGNED && nums[curr_num]==true){
+			if(curr_num != UNASSIGNED && nums[curr_num]){
 				gridStatus = false;
 				return;
 			}
@@ -228,19 +215,19 @@ inline sudoku_grid::sudoku_grid(std::string grid_str, bool row_major){
 
 //printing the grid
 inline void sudoku_grid::printGrid(){
-	for(int i=0; i<9; i++){
-		for(int j=0; j<9; j++){
-			if(grid[i][j]==UNASSIGNED){
+	for(auto & i : grid){
+		for(int j : i){
+			if(j==UNASSIGNED){
 				std::cout<<'.';
 			}
 			else{
-				std::cout<<grid[i][j];
+				std::cout<<j;
 			}
 			std::cout<<'|';
 		}
 		std::cout<<std::endl;
 	}
-	std::cout<<"\nDifficulty of current sudoku(0 being easiest): "<<this->difficulityLevel;
+	std::cout<<"\nDifficulty of current sudoku(0 being easiest): "<<this->difficultyLevel;
 	std::cout<<std::endl;
 }
 
@@ -254,28 +241,28 @@ bool sudoku_grid::solveGrid(){
 	}
 
 	//consider digits 1 to 9
-	for(int num=0; num<9; num++){
-		//if looks promising
-		if(isSafe(grid, row, col, this->guessNum[num])){
-			//make temporary assignment
-			this->grid[row][col] = this-> guessNum[num];
+    for (int num: this->guessNum)
+        //if it looks promising
+        if (isSafe(grid, row, col, num)) {
+            //make temporary assignment
+            this->grid[row][col] = num;
 
-			//return if success
-			if(solveGrid()){
-				return true;
-			}
+            //return if success
+            if (solveGrid()) {
+                return true;
+            }
 
-			//failure, unmake changes
-			this->grid[row][col] = UNASSIGNED;
-		}
-	}
+            //failure, unmake changes
+            this->grid[row][col] = UNASSIGNED;
+        }
 
-	return false;//this triggers backtracking;
+
+    return false;//this triggers backtracking;
 	
 }
 
-//check if the grid is uniquely solveable
-void sudoku_grid::countSoln(int& number){
+//check if the grid is uniquely solvable
+void sudoku_grid::countSolution(int& number){
 	int row, col;
 	if(!findUnassignedLocation(this->grid, row, col)){
 		number++;
@@ -285,7 +272,7 @@ void sudoku_grid::countSoln(int& number){
 	for(int i=0; i<9 && number<2; i++){
 		if(isSafe(this->grid, row, col, guessNum[i])){
 			this->grid[row][col] = this->guessNum[i];
-			countSoln(number);
+            countSolution(number);
 		}
 
 		this->grid[row][col] = UNASSIGNED;
@@ -294,15 +281,15 @@ void sudoku_grid::countSoln(int& number){
 
 //generate puzzle
 inline void sudoku_grid::genPuzzle(){
-	for(int i=0; i<81; i++){
-		int x=(this->gridPos[i])/9;
-		int y=(this->gridPos[i])%9;
+	for(int & gridPo : this->gridPos){
+		int x=gridPo/9;
+		int y=gridPo%9;
 		int temp=this->grid[x][y];
 		this->grid[x][y]=UNASSIGNED;
 
-		//if more then 1 solution replace it back
+		//if more than 1 solution replace it back
 		int check=0;
-		countSoln(check);
+        countSolution(check);
 		if(check!=1){
 			this->grid[x][y] = temp;
 		}
@@ -311,7 +298,7 @@ inline void sudoku_grid::genPuzzle(){
 
 //calculate difficulty branch difficulty score
 inline int sudoku_grid::branchDifficultyScore(){
-	int emptypositions=-1;
+	int emptyPositions=-1;
 	int tempGrid[9][9];
 	int sum=0;
 
@@ -321,43 +308,41 @@ inline int sudoku_grid::branchDifficultyScore(){
 		}
 	}
 
-	while(emptypositions!=0){
+	while(emptyPositions != 0){
 		std::vector<std::vector<int>> empty;
 
-		for(int i=0; i<81; i++){
-			if(tempGrid[(int)i/9][(int)i%9] == 0){
-				std::vector<int> temp;
-				temp.push_back(i);
-				
-				for(int num=1; num<=9; num++){
-					if(isSafe(tempGrid, i/9, i%9, num)){
-						temp.push_back(num);
-					}
-				}
+        for (int i = 0; i < 81; i++)
+            if (tempGrid[(int) i / 9][(int) i % 9] == 0) {
+                std::vector<int> temp;
+                temp.push_back(i);
 
-				empty.push_back(temp);
-			}
-		}
-		if(empty.size()==0){
+                for (int num = 1; num <= 9; num++)
+                    if (isSafe(tempGrid, i / 9, i % 9, num))
+                        temp.push_back(num);
+
+
+                empty.push_back(temp);
+            }
+
+        if(empty.empty()){
 			std::cout<<"Hello: "<<sum<<std::endl;
 			return sum;
 		}
 
 		int minIndex = 0;
-		int check = empty.size();
-		for(int i=0; i<check; i++){
-			if(empty[i].size() < empty[minIndex].size()){
-				minIndex=i;
-			}
-		}
+		int check = (int)empty.size();
+        for (int i = 0; i < check; i++)
+            if (empty[i].size() < empty[minIndex].size())
+                minIndex = i;
 
-		int branchingFactor = empty[minIndex].size();
+
+        int branchingFactor = (int)empty[minIndex].size();
 		int rowIndex = empty[minIndex][0]/9;
 		int colIndex = empty[minIndex][0]%9;
 
 		tempGrid[rowIndex][colIndex] = this->solution_grid[rowIndex][colIndex];
 		sum = sum + ((branchingFactor - 2)*(branchingFactor -2));
-		emptypositions = empty.size()-1;
+        emptyPositions = (int)empty.size() - 1;
 	}
 	return sum;
 }
@@ -366,28 +351,26 @@ inline int sudoku_grid::branchDifficultyScore(){
 inline void sudoku_grid::calculateDifficulty(){
 	int B = branchDifficultyScore();
 	int emptyCells = 0;
-	for(int i=0; i<9; i++){
-		for(int j=0; j<9; j++){
-			if(this->grid[i][j]==UNASSIGNED){
-				emptyCells ++;
-			}
-		}
-	}
+    for (auto &i: this->grid)
+        for (int j: i)
+            if (j == UNASSIGNED)
+                emptyCells++;
 
-	this->difficulityLevel = B*100 + emptyCells;
+
+    this->difficultyLevel = B*100 + emptyCells;
 }
 
-class sudokuWindow : Gtk::Window {
+inline bool sudoku_grid::verifyGridStatus() const {
+    return gridStatus;
+}
 
-};
+/*class sudokuWindow : public Gtk::Window {
+
+};*/
 
 int main(){
-	//initialising seed for random number generation
-	std::random_device rd;
-	mt.seed(rd());
-
 	//creating an instance of sudoku
-	sudoku_grid* puzzle = new sudoku_grid();
+	auto* puzzle = new sudoku_grid();
 
 	//creating a seed for puzzle
 	puzzle->createSeed();
