@@ -2,7 +2,7 @@
 
 echo "Compiling the code..."
 
-str=$(g++ sudokuGen.cpp -o sudokuGen)
+str=$(g++ sudokuGen.cpp main.cpp -o sudokuGen)
 if [ -z $str ]; then
     echo "Succesfully compiled :)"
 

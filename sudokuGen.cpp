@@ -1,40 +1,5 @@
-#include <iostream>
-#include <algorithm>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
-
-#define UNASSIGNED 0
-
+#include "sudokuGen.hpp"
 using namespace std;
-
-class Sudoku {
-private:
-  int grid[9][9];
-  int solnGrid[9][9];
-  int guessNum[9];
-  int gridPos[81];
-  int difficultyLevel;
-  bool grid_status;
-
-public:
-  Sudoku ();
-  Sudoku (string, bool row_major=true);
-  void fillEmptyDiagonalBox(int);
-  void createSeed();
-  void printGrid();
-  bool solveGrid();
-  string getGrid();
-  void countSoln(int &number);
-  void genPuzzle();
-  bool verifyGridStatus();
-  void printSVG(string);
-  void calculateDifficulty();
-  int  branchDifficultyScore();
-};
 
 // START: Get grid as string in row major order
 string Sudoku::getGrid()
@@ -519,38 +484,3 @@ void Sudoku::calculateDifficulty()
   this->difficultyLevel = B*100 + emptyCells;
 }
 // END: calculating difficulty level
-
-
-// START: The main function
-int main(int argc, char const *argv[])
-{
-  // Initialising seed for random number generation
-  srand(time(NULL));
-
-  // Creating an instance of Sudoku
-  Sudoku *puzzle = new Sudoku();
-
-  // Creating a seed for puzzle generation
-  puzzle->createSeed();
-
-  // Generating the puzzle
-  puzzle->genPuzzle();
-
-  // Calculating difficulty of puzzle
-  puzzle->calculateDifficulty();
-
-  // testing by printing the grid
-  puzzle->printGrid();
-
-  // Printing the grid into SVG file
-  string rem = "sudokuGen";
-  string path = argv[0];
-  path = path.substr(0,path.size() - rem.size());
-  puzzle->printSVG(path);
-  cout<<"The above sudoku puzzle has been stored in puzzles.svg in current folder\n";
-  // freeing the memory
-  delete puzzle;
-
-  return 0;
-}
-// END: The main function
